@@ -2,9 +2,13 @@ services:
   web:
     image: 192.168.99.101:5000/bgapp-web
     deploy:
-      replicas: 3
+      endpoint_mode: vip
+      mode: global
     ports:
-      - 8080:80
+      - target: 80
+        published: 8081
+        protocol: tcp
+        mode: ingress
     volumes:
       - "/home/vagrant/bgapp/web:/var/www/html:ro"
     networks:
@@ -12,6 +16,9 @@ services:
 
   db:
     image: 192.168.99.101:5000/bgapp-db
+    deploy:
+      endpoint_mode: dnsrr
+      mode: global
     networks:
       - app-network
     environment:

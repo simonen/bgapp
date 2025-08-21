@@ -29,6 +29,7 @@
       <table>
 <?php
    require_once ('config.php');
+   print "Node: <b>".gethostname()."</b>";
 
    try {
       $connection = new PDO("mysql:host={$host};dbname={$database};charset=utf8", $user, $password);
